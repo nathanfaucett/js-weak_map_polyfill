@@ -1,0 +1,26 @@
+{
+  "name": "weak_map",
+  "version": "0.0.1",
+  "description": "weak map shim for the browser and node.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nathanfaucett/weak_map.git"
+  },
+  "main": "src/index.js",
+  "keywords": [
+    "weak_map",
+    "weak_map.js"
+  ],
+  "author": "Nathan Faucett",
+  "license": "BSD-2-Clause",
+  "readmeFilename": "README.md",
+  "devDependencies": {
+    "grunt": "",
+    "grunt-contrib-jshint": "^0.10.0",
+    "grunt-jsbeautifier": ""
+  },
+  "dependencies": {
+    "type": "nathanfaucett/type"
+  }
+}
+
