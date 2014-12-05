@@ -10,12 +10,11 @@ var WeakMapShim = global.WeakMap,
 if (!type.isNative(WeakMapShim)) {
     hiddenStore = function hiddenStore(obj, key) {
         var store = {
-                key: key
-            },
-            valueOf = obj.valueOf;
+            key: key
+        };
 
         obj.valueOf = function(value) {
-            return value !== key ? valueOf.apply(this, arguments) : store;
+            return value !== key ? nativeValueOf.apply(this, arguments) : store;
         };
 
         return store;
