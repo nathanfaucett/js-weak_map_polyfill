@@ -7,7 +7,7 @@ var WeakMapShim = global.WeakMap,
     createStore, hiddenStore;
 
 
-if (type.isNative(WeakMapShim)) {
+if (!type.isNative(WeakMapShim)) {
     hiddenStore = function hiddenStore(obj, key) {
         var store = {
                 key: key
@@ -85,7 +85,7 @@ if (type.isNative(WeakMapShim)) {
     };
     WeakMapShim.prototype.constructor = WeakMapShim;
 } else {
-    WeakMap.prototype.remove = WeakMap.prototype["delete"];
+    WeakMapShim.prototype.remove = WeakMapShim.prototype["delete"];
 }
 
 
