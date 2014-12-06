@@ -1,91 +1,71 @@
-var type = require("type");
+var type = require("type"),
+    createMap = require("create_map");
 
 
-var WeakMapShim = global.WeakMap,
-    hasOwnProp = Object.prototype.hasOwnProperty,
-    nativeValueOf = Object.prototype.valueOf,
-    createStore, hiddenStore;
+var NativeWeakMap = global.WeakMap,
+    WeakMapShim;
 
 
-if (!type.isNative(WeakMapShim)) {
-    hiddenStore = function hiddenStore(obj, key) {
-        var store = {
-            key: key
-        };
+if (type.isNative(NativeWeakMap)) {
+    WeakMapShim = NativeWeakMap;
 
-        obj.valueOf = function(value) {
-            return value !== key ? nativeValueOf.apply(this, arguments) : store;
-        };
-
-        return store;
+    WeakMapShim.prototype.count = function() {
+        return this.size;
     };
-
-    createStore = function createStore() {
-        var key = {},
-            keys = [];
-
-        return function(obj, clear) {
-            var store, i;
-
-            if (clear === true) {
-                i = keys.length;
-
-                while (i--) {
-                    keys[i].valueOf = nativeValueOf;
-                }
-                keys.length = 0;
-                return undefined;
-            }
-
-            if (!type.isObject(obj)) {
-                throw new TypeError("Invalid value used as weak map key");
-            }
-
-            store = obj.valueOf(key);
-
-            if (store == null || store.key !== key) {
-                store = hiddenStore(obj, key);
-                keys[keys.length] = obj;
-            }
-
-            return store;
-        };
-    };
-
-    WeakMapShim = function WeakMap() {
-        var privates;
-
-        if (!(this instanceof WeakMapShim)) {
+} else {
+    WeakMapShim = function Map() {
+        if (!(this instanceof Map)) {
             throw new TypeError("Constructor WeakMap requires 'new'");
         }
 
-        privates = createStore();
-
-        this.set = function set(key, value) {
-            privates(key).value = value;
-        };
-
-        this.get = function get(key, fallback) {
-            var store = privates(key);
-            return hasOwnProp.call(store, "value") ? store.value : fallback;
-        };
-
-        this.has = function has(key) {
-            return hasOwnProp.call(privates(key), "value");
-        };
-
-        this.remove = this["delete"] = function remove(key) {
-            return delete privates(key).value;
-        };
-
-        this.clear = function clear() {
-            privates(null, true);
-        };
+        this._map = createMap();
     };
     WeakMapShim.prototype.constructor = WeakMapShim;
-} else {
-    WeakMapShim.prototype.remove = WeakMapShim.prototype["delete"];
+
+    WeakMapShim.prototype.get = function(key) {
+
+        return this._map.get(key);
+    };
+
+    WeakMapShim.prototype.set = function(key, value) {
+        if (key == null || typeof(key) !== "object") {
+            throw new TypeError("Invalid value used as key");
+        }
+
+        this._map.set(key, value);
+    };
+
+    WeakMapShim.prototype.has = function(key) {
+
+        return this._map.has(key);
+    };
+
+    WeakMapShim.prototype["delete"] = function(key) {
+
+        return this._map.remove(key);
+    };
+
+    WeakMapShim.prototype.clear = function() {
+
+        this._map.clear();
+    };
+
+    if (Object.defineProperty) {
+        Object.defineProperty(WeakMapShim.prototype, "size", {
+            get: function() {
+                return this._map.size();
+            }
+        });
+    }
+
+    WeakMapShim.prototype.count = function() {
+        return this._map.size();
+    };
+
+    WeakMapShim.prototype.length = 1;
 }
+
+WeakMapShim.prototype.remove = WeakMapShim.prototype["delete"];
 
 
 module.exports = WeakMapShim;
