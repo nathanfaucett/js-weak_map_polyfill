@@ -13,8 +13,8 @@ if (type.isNative(NativeWeakMap)) {
         return this.size;
     };
 } else {
-    WeakMapShim = function Map() {
-        if (!(this instanceof Map)) {
+    WeakMapShim = function WeakMap() {
+        if (!(this instanceof WeakMap)) {
             throw new TypeError("Constructor WeakMap requires 'new'");
         }
 
@@ -28,7 +28,7 @@ if (type.isNative(NativeWeakMap)) {
     };
 
     WeakMapShim.prototype.set = function(key, value) {
-        if (key == null || typeof(key) !== "object") {
+        if (type.isPrimitive(key)) {
             throw new TypeError("Invalid value used as key");
         }
 
