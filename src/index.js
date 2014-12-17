@@ -2,7 +2,7 @@ var type = require("type"),
     createMap = require("create_map");
 
 
-var NativeWeakMap = global.WeakMap,
+var NativeWeakMap = typeof(WeakMap) === "undefined" ? null : WeakMap,
     WeakMapShim;
 
 
