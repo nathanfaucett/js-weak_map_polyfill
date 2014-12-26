@@ -1,12 +1,12 @@
 var type = require("type"),
-    createMap = require("create_map");
+    createWeakMap = require("create_weak_map");
 
 
 var NativeWeakMap = typeof(WeakMap) !== "undefined" ? WeakMap : null,
     WeakMapShim;
 
 
-if (type.isNative(NativeWeakMap)) {
+if (!type.isNative(NativeWeakMap)) {
     WeakMapShim = NativeWeakMap;
 
     WeakMapShim.prototype.count = function() {
@@ -18,7 +18,7 @@ if (type.isNative(NativeWeakMap)) {
             throw new TypeError("Constructor WeakMap requires 'new'");
         }
 
-        this._map = createMap();
+        this._map = createWeakMap();
     };
     WeakMapShim.prototype.constructor = WeakMapShim;
 
