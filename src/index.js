@@ -6,7 +6,7 @@ var NativeWeakMap = typeof(WeakMap) !== "undefined" ? WeakMap : null,
     WeakMapShim;
 
 
-if (!type.isNative(NativeWeakMap)) {
+if (type.isNative(NativeWeakMap)) {
     WeakMapShim = NativeWeakMap;
 
     WeakMapShim.prototype.count = function() {
