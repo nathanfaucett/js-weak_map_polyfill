@@ -1,4 +1,4 @@
-WeakMapShim
+WeakMap
 =======
 
-WeakMap shim for the browser and node.js
+WeakMap polyfill for the browser and node.js

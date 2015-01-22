@@ -1,17 +1,17 @@
 {
-  "name": "weak_map_shim",
+  "name": "weak_map_polyfill",
   "version": "0.0.1",
-  "description": "weak map shim for the browser and node.js",
+  "description": "weak map polyfill for the browser and node.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/nathanfaucett/weak_map_shim.git"
+    "url": "https://github.com/nathanfaucett/weak_map_polyfill.git"
   },
   "main": "src/index.js",
   "keywords": [
     "weak_map",
     "weak_map.js",
-    "weak_map_shim",
-    "weak_map_shim.js"
+    "weak_map_polyfill",
+    "weak_map_polyfill.js"
   ],
   "author": "Nathan Faucett",
   "license": "BSD-2-Clause",
