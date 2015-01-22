@@ -1,4 +1,5 @@
-var type = require("type"),
+var isNative = require("is_native"),
+    isPrimitive = require("is_primitive"),
     createWeakMap = require("create_weak_map");
 
 
@@ -6,7 +7,7 @@ var NativeWeakMap = typeof(WeakMap) !== "undefined" ? WeakMap : null,
     WeakMapShim;
 
 
-if (type.isNative(NativeWeakMap)) {
+if (isNative(NativeWeakMap)) {
     WeakMapShim = NativeWeakMap;
 
     WeakMapShim.prototype.count = function() {
@@ -18,48 +19,48 @@ if (type.isNative(NativeWeakMap)) {
             throw new TypeError("Constructor WeakMap requires 'new'");
         }
 
-        this._map = createWeakMap();
+        this.__map = createWeakMap();
     };
     WeakMapShim.prototype.constructor = WeakMapShim;
 
     WeakMapShim.prototype.get = function(key) {
 
-        return this._map.get(key);
+        return this.__map.get(key);
     };
 
     WeakMapShim.prototype.set = function(key, value) {
-        if (type.isPrimitive(key)) {
+        if (isPrimitive(key)) {
             throw new TypeError("Invalid value used as key");
         }
 
-        this._map.set(key, value);
+        this.__map.set(key, value);
     };
 
     WeakMapShim.prototype.has = function(key) {
 
-        return this._map.has(key);
+        return this.__map.has(key);
     };
 
     WeakMapShim.prototype["delete"] = function(key) {
 
-        return this._map.remove(key);
+        return this.__map.remove(key);
     };
 
     WeakMapShim.prototype.clear = function() {
 
-        this._map.clear();
+        this.__map.clear();
     };
 
     if (Object.defineProperty) {
         Object.defineProperty(WeakMapShim.prototype, "size", {
             get: function() {
-                return this._map.size();
+                return this.__map.size();
             }
         });
     }
 
     WeakMapShim.prototype.count = function() {
-        return this._map.size();
+        return this.__map.size();
     };
 
     WeakMapShim.prototype.length = 1;

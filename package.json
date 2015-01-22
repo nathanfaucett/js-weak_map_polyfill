@@ -21,7 +21,8 @@
   },
   "dependencies": {
     "create_weak_map": "nathanfaucett/create_weak_map",
-    "type": "nathanfaucett/type"
+    "is_primitive": "nathanfaucett/is_primitive",
+    "is_native": "nathanfaucett/is_native"
   }
 }
 
