@@ -4,31 +4,31 @@ var isNative = require("is_native"),
 
 
 var NativeWeakMap = typeof(WeakMap) !== "undefined" ? WeakMap : null,
-    WeakMapShim;
+    WeakMapPolyfill;
 
 
 if (isNative(NativeWeakMap)) {
-    WeakMapShim = NativeWeakMap;
+    WeakMapPolyfill = NativeWeakMap;
 
-    WeakMapShim.prototype.count = function() {
+    WeakMapPolyfill.prototype.count = function() {
         return this.size;
     };
 } else {
-    WeakMapShim = function WeakMap() {
+    WeakMapPolyfill = function WeakMap() {
         if (!(this instanceof WeakMap)) {
             throw new TypeError("Constructor WeakMap requires 'new'");
         }
 
         this.__map = createWeakMap();
     };
-    WeakMapShim.prototype.constructor = WeakMapShim;
+    WeakMapPolyfill.prototype.constructor = WeakMapPolyfill;
 
-    WeakMapShim.prototype.get = function(key) {
+    WeakMapPolyfill.prototype.get = function(key) {
 
         return this.__map.get(key);
     };
 
-    WeakMapShim.prototype.set = function(key, value) {
+    WeakMapPolyfill.prototype.set = function(key, value) {
         if (isPrimitive(key)) {
             throw new TypeError("Invalid value used as key");
         }
@@ -36,37 +36,37 @@ if (isNative(NativeWeakMap)) {
         this.__map.set(key, value);
     };
 
-    WeakMapShim.prototype.has = function(key) {
+    WeakMapPolyfill.prototype.has = function(key) {
 
         return this.__map.has(key);
     };
 
-    WeakMapShim.prototype["delete"] = function(key) {
+    WeakMapPolyfill.prototype["delete"] = function(key) {
 
         return this.__map.remove(key);
     };
 
-    WeakMapShim.prototype.clear = function() {
+    WeakMapPolyfill.prototype.clear = function() {
 
         this.__map.clear();
     };
 
     if (Object.defineProperty) {
-        Object.defineProperty(WeakMapShim.prototype, "size", {
+        Object.defineProperty(WeakMapPolyfill.prototype, "size", {
             get: function() {
                 return this.__map.size();
             }
         });
     }
 
-    WeakMapShim.prototype.count = function() {
+    WeakMapPolyfill.prototype.count = function() {
         return this.__map.size();
     };
 
-    WeakMapShim.prototype.length = 1;
+    WeakMapPolyfill.prototype.length = 1;
 }
 
-WeakMapShim.prototype.remove = WeakMapShim.prototype["delete"];
+WeakMapPolyfill.prototype.remove = WeakMapPolyfill.prototype["delete"];
 
 
-module.exports = WeakMapShim;
+module.exports = WeakMapPolyfill;
