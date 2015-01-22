@@ -1,15 +1,17 @@
 {
-  "name": "weak_map",
+  "name": "weak_map_shim",
   "version": "0.0.1",
   "description": "weak map shim for the browser and node.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/nathanfaucett/weak_map.git"
+    "url": "https://github.com/nathanfaucett/weak_map_shim.git"
   },
   "main": "src/index.js",
   "keywords": [
     "weak_map",
-    "weak_map.js"
+    "weak_map.js",
+    "weak_map_shim",
+    "weak_map_shim.js"
   ],
   "author": "Nathan Faucett",
   "license": "BSD-2-Clause",
