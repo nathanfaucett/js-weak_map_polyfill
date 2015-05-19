@@ -19,7 +19,8 @@
   "devDependencies": {
     "grunt": "",
     "grunt-contrib-jshint": "^0.10.0",
-    "grunt-jsbeautifier": ""
+    "grunt-jsbeautifier": "",
+    "mocha": "^2.2.5"
   },
   "dependencies": {
     "create_weak_map": "nathanfaucett/create_weak_map",
@@ -27,4 +28,3 @@
     "is_native": "nathanfaucett/is_native"
   }
 }
-
