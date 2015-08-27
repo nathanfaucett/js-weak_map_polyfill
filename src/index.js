@@ -1,6 +1,6 @@
 var isNative = require("is_native"),
     isPrimitive = require("is_primitive"),
-    createWeakMap = require("create_weak_map");
+    createStore = require("create_store");
 
 
 var NativeWeakMap = typeof(WeakMap) !== "undefined" ? WeakMap : null,
@@ -15,38 +15,36 @@ if (isNative(NativeWeakMap)) {
         if (!(this instanceof WeakMap)) {
             throw new TypeError("Constructor WeakMap requires 'new'");
         } else {
-            this.__map = createWeakMap();
+            this.__store = createStore();
         }
     };
     WeakMapPolyfillPrototype = WeakMapPolyfill.prototype;
     WeakMapPolyfillPrototype.constructor = WeakMapPolyfill;
 
     WeakMapPolyfillPrototype.get = function(key) {
-        return this.__map.get(key);
+        return this.__store.get(key);
     };
 
     WeakMapPolyfillPrototype.set = function(key, value) {
         if (isPrimitive(key)) {
             throw new TypeError("Invalid value used as key");
         } else {
-            this.__map.set(key, value);
+            this.__store.set(key, value);
         }
     };
 
     WeakMapPolyfillPrototype.has = function(key) {
-        return this.__map.has(key);
+        return this.__store.has(key);
     };
 
     WeakMapPolyfillPrototype["delete"] = function(key) {
-        return this.__map.remove(key);
+        return this.__store.remove(key);
     };
 
     WeakMapPolyfillPrototype.length = 0;
 }
 
 WeakMapPolyfillPrototype.remove = WeakMapPolyfillPrototype["delete"];
-WeakMapPolyfillPrototype.__KeyedCollection__ = true;
-WeakMapPolyfillPrototype.__Collection__ = true;
 
 
 module.exports = WeakMapPolyfill;
