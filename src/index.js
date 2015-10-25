@@ -12,11 +12,7 @@ if (isNative(NativeWeakMap)) {
     WeakMapPolyfillPrototype = WeakMapPolyfill.prototype;
 } else {
     WeakMapPolyfill = function WeakMap() {
-        if (!(this instanceof WeakMap)) {
-            throw new TypeError("Constructor WeakMap requires 'new'");
-        } else {
-            this.__store = createStore();
-        }
+        this.__store = createStore();
     };
     WeakMapPolyfillPrototype = WeakMapPolyfill.prototype;
     WeakMapPolyfillPrototype.constructor = WeakMapPolyfill;
