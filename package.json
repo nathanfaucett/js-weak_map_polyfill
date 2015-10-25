@@ -23,12 +23,12 @@
   "license": "MIT",
   "readmeFilename": "README.md",
   "devDependencies": {
-    "grunt": "",
-    "grunt-contrib-jshint": "^0.10.0",
-    "grunt-jsbeautifier": "",
+    "grunt": "^0.4.5",
+    "grunt-contrib-jshint": "^0.11.3",
+    "grunt-jsbeautifier": "^0.2.10",
     "tap-spec": "^4.1.0",
     "tape": "^4.2.0",
-    "zuul": "^3.3.0"
+    "zuul": "^3.6.0"
   },
   "dependencies": {
     "create_store": "git://github.com/nathanfaucett/create_store.git",
