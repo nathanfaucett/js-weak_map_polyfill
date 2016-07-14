@@ -1,6 +1,6 @@
-var isNative = require("is_native"),
-    isPrimitive = require("is_primitive"),
-    createStore = require("create_store");
+var isNative = require("@nathanfaucett/is_native"),
+    isPrimitive = require("@nathanfaucett/is_primitive"),
+    createStore = require("@nathanfaucett/create_store");
 
 
 var NativeWeakMap = typeof(WeakMap) !== "undefined" ? WeakMap : null,
