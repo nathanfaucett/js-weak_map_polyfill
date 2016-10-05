@@ -1,6 +1,6 @@
 {
   "name": "@nathanfaucett/weak_map_polyfill",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "WeakMap polyfill",
   "repository": {
     "type": "git",
@@ -31,8 +31,8 @@
     "zuul": "^3.6.0"
   },
   "dependencies": {
-    "@nathanfaucett/create_store": "^0.0.1",
-    "@nathanfaucett/is_primitive": "^0.0.1",
+    "@nathanfaucett/create_store": "^0.0.2",
+    "@nathanfaucett/is_primitive": "^0.0.2",
     "@nathanfaucett/is_native": "^0.0.2"
   }
 }
